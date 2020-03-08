@@ -1,0 +1,35 @@
+version: '3.2'
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+    - 9090:9090
+    command:
+    - --config.file=/etc/prometheus/prometheus.yml
+    volumes:
+    - ./config/prometheus:/etc/prometheus
+  example-random0:
+    image: prom/client_golang_examples_simple:beorn7_release
+    container_name: example-random0
+    ports:
+    - 8080:8080
+    entrypoint: /random
+    command:
+    - -listen-address=:8080
+  example-random1:
+    image: prom/client_golang_examples_simple:beorn7_release
+    container_name: example-random1
+    ports:
+    - 8081:8081
+    entrypoint: /random
+    command:
+    - -listen-address=:8081
+  example-random2:
+    image: prom/client_golang_examples_simple:beorn7_release
+    container_name: example-random2
+    ports:
+    - 8082:8082
+    entrypoint: /random
+    command:
+    - -listen-address=:8082
